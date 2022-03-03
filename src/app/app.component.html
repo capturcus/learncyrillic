@@ -5,5 +5,7 @@
   </div>
   <input type="text" (keydown.enter)="validateGuess()" [(ngModel)]="guess" />
   <button (click)="validateGuess()">guess</button>
-  <div [ngStyle]="{'color': this.guessWasValid ? 'green' : 'red'}">{{bottomText}}</div>
+  <div [ngStyle]="{'color': this.guessWasValid ? 'green' : 'red', 'font-size': '20pt'}">{{bottomText}}</div>
+  <div id="bottomtext2">{{bottomText2}}</div>
+  <div id="build">build 3</div>
 </div>

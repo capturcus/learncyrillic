@@ -93,16 +93,22 @@ export class AppComponent {
   validGuess: string = "";
   guessWasValid: boolean = false;
   bottomText: string = "";
+  bottomText2: string = "";
+  correct: number = 0;
+  incorrect: number = 0;
+  alphabetIteration: { [key: string]: string } = {};
 
   ngOnInit() {
     this.setupGuess();
   }
 
   setupGuess() {
-    let sum = sumDicts(letters_lowercase, letters_uppercase);
-    var keys = Object.keys(sum);
+    if (Object.keys(this.alphabetIteration).length === 0) {
+      this.alphabetIteration = sumDicts(letters_lowercase, letters_uppercase);
+    }
+    var keys = Object.keys(this.alphabetIteration);
     this.promptLetter = keys[Math.floor(keys.length * Math.random())];
-    this.validGuess = sum[this.promptLetter];
+    this.validGuess = this.alphabetIteration[this.promptLetter];
     this.guess = "";
   }
 
@@ -111,7 +117,12 @@ export class AppComponent {
     this.bottomText = this.promptLetter + " -> " + this.validGuess;
     if (!this.guessWasValid) {
       this.bottomText += ", you guessed: " + this.guess;
+      this.incorrect += 1;
+    } else {
+      delete this.alphabetIteration[this.promptLetter];
+      this.correct += 1;
     }
+    this.bottomText2 = "letters left: " + Object.keys(this.alphabetIteration).length + ", correct guesses: " + this.correct + ", incorrect guesses: " + this.incorrect;
     this.setupGuess();
   }
 }
