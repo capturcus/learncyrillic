@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-const letters_lowercase: { [key: string]: string }  = {
+const letters_lowercase: { [key: string]: string } = {
   "а": "a",
   "б": "b",
   "в": "v",
@@ -89,10 +89,10 @@ function sumDicts(a: { [key: string]: string }, b: { [key: string]: string }): {
 export class AppComponent {
   guess: string = "";
   title = 'learncyrillic';
-  promptLetter:string = "";
-  validGuess:string = "";
-  guessWasValid:boolean = false;
-  bottomText:string = "";
+  promptLetter: string = "";
+  validGuess: string = "";
+  guessWasValid: boolean = false;
+  bottomText: string = "";
 
   ngOnInit() {
     this.setupGuess();
@@ -107,12 +107,10 @@ export class AppComponent {
   }
 
   validateGuess() {
-    if (this.validGuess.trim().toLowerCase() === this.guess) {
-      this.guessWasValid = true;
-      this.bottomText = "your guess was valid :)";
-    } else {
-      this.guessWasValid = false;
-      this.bottomText = this.promptLetter + " -> " + this.validGuess + ", you guessed: " + this.guess;
+    this.guessWasValid = this.validGuess === this.guess.trim().toLowerCase();
+    this.bottomText = this.promptLetter + " -> " + this.validGuess;
+    if (!this.guessWasValid) {
+      this.bottomText += ", you guessed: " + this.guess;
     }
     this.setupGuess();
   }
